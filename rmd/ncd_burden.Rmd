@@ -2,7 +2,7 @@
 
 ```{r}
 # Load necessary packages
-pacman::p_load(tidyverse, knitr, here)
+pacman::p_load(tidyverse,knitr, here)
 
 # Import the non-communicable diseases data
 data_ncd <- read_csv(here("data", "burden-of-disease-ncd.csv"))
@@ -11,19 +11,44 @@ data_ncd <- read_csv(here("data", "burden-of-disease-ncd.csv"))
 ## Table of Estimates for NCD Burden Over Time
 
 ```{r}
-# Here render a table for the DALY burden over time for the three countries 
+# Here render a table for the DALY burden over time for the three countries
+
+#List of selected countries
+selected_countries<-c("Malawi","Ghana", "Cameroon")
+#
+filtered_df<-data_ncd %>% 
+  filter(Entity %in% selected_countries) %>% rename(daly = 4)
 # You should pivot the data to show each country in a separate column.
-# Use kable() from the knitr package to render the table.
+pivot_df<- pivot_wider(filtered_df,names_from = Entity,values_from = daly,id_cols = Year)
+ # Use kable() from the knitr package to render the table.              
+   kable(pivot_df)                                                             
 ```
 
 ## Plot Showing Trends in NCD Burden Over Time 
 
 ```{r}
 # Here, plot a line graph showing the trend of DALY burden for the chosen countries over time. You can use ggplot2 to create this plot. Each country's line should be a different color.
+# Load necessary library
+library(ggplot2)
+
+ggplot(filtered_df, aes(x = Year, y = daly, color = Entity)) +
+  geom_line() +
+  geom_point() + 
+  labs(title = "Trend of DALY Burden Over Time",
+       x = "Year",
+       y = "DALY Burden",
+       color = "Entity") +  # Update legend title
+  scale_color_manual(values = c("Malawi" = "blue", "Ghana" = "red", "Cameroon" = "green")) +  # Set custom colors for each country
+  theme(legend.position = "bottom")+  # Change legend position
+geom_line()
+  
 ```
+
 
 ## Summary of NCD Burden Findings
 
 Provide a brief analysis based on the data presented in the table and chart. Highlight any significant findings or patterns. About 3 sentences.
+The DALY burden of non- communicable diseases rate in Malawi was high between 1990 and 2000 compared to the other two countries. However, there was a steep and continuous decline in non-communicable disease rates from 2000 to 2010. The plot also show a more linear pattern of change in Ghana with lower DALY burden compared to the other countries.
+
 
 
