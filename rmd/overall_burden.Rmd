@@ -6,6 +6,8 @@ pacman::p_load(tidyverse, knitr, here)
 
 # Import the overall disease data
 data_overall <- read_csv(here("data", "burden-of-disease-all-causes.csv"))
+data_overall
+
 ```
 
 ## Table of Estimates for Overall Disease Burden Over Time
@@ -13,16 +15,43 @@ data_overall <- read_csv(here("data", "burden-of-disease-all-causes.csv"))
 ```{r}
 # Here render a table for the DALY burden over time for the three countries 
 # You should pivot the data to show each country in a separate column.
+
+selected_countries <- data_overall %>%
+  filter(Entity %in% c("Malawi", "Ghana", "Cameroon")) %>%
+  rename(Dalys = 4) 
+selected_countries
+  
+wide_data <-pivot_wider(selected_countries,
+                        values_from = Dalys,
+                        names_from = Entity,
+                        id_cols = Year) %>%
+  arrange(Year)
+wide_data
+
 # Use kable() from the knitr package to render the table.
+kable(wide_data, format = "html", caption = "Overall DALY Burden")
+
 ```
+
 
 ## Plot Showing Trends in Overall Disease Burden Over Time
 
 ```{r}
 # Here, plot a line graph showing the trend of DALY burden for the chosen countries over time. You can use ggplot2 to create this plot. Each country's line should be a different color.
+
+ggplot(data = selected_countries,
+       aes(x = Year,
+           y = Dalys,
+           color = Entity)) +
+  geom_line(size = 0.75) +
+   labs(x = "Year", y = "Dalys", title = "Trend of Overall DALY Burden") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::comma)
+  
 ```
 
 ## Summary of Overall Disease Burden Findings
 
-Provide a brief analysis based on the data presented in the table and chart. Highlight any significant findings or patterns. About 3 sentences.
+We observed that Malawi recorded the highest number of DALYs, followed by Cameroon with gradual increase from 1990 to early 2000s and later on decreased from 2002
+
 
