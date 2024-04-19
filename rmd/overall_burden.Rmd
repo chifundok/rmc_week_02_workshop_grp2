@@ -1,32 +1,32 @@
 # Overall Disease Burden
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 # Load necessary packages
 pacman::p_load(tidyverse, knitr, here)
 
 # Import the overall disease data
 data_overall <- read_csv(here("data", "burden-of-disease-all-causes.csv"))
-data_overall
+#data_overall
 
 ```
 
 ## Table of Estimates for Overall Disease Burden Over Time
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 # Here render a table for the DALY burden over time for the three countries 
 # You should pivot the data to show each country in a separate column.
 
 selected_countries <- data_overall %>%
   filter(Entity %in% c("Malawi", "Ghana", "Cameroon")) %>%
   rename(Dalys = 4) 
-selected_countries
+#selected_countries
   
 wide_data <-pivot_wider(selected_countries,
                         values_from = Dalys,
                         names_from = Entity,
                         id_cols = Year) %>%
   arrange(Year)
-wide_data
+#wide_data
 
 # Use kable() from the knitr package to render the table.
 kable(wide_data, format = "html", caption = "Overall DALY Burden")
@@ -36,7 +36,7 @@ kable(wide_data, format = "html", caption = "Overall DALY Burden")
 
 ## Plot Showing Trends in Overall Disease Burden Over Time
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 # Here, plot a line graph showing the trend of DALY burden for the chosen countries over time. You can use ggplot2 to create this plot. Each country's line should be a different color.
 
 ggplot(data = selected_countries,

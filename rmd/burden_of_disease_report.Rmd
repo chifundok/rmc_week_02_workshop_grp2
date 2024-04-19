@@ -1,6 +1,6 @@
 ---
 title: "Global Disease Burden Analysis"
-author: "REPLACE WITH THE AUTHOR NAMES" # AUTHOR NAMES HERE!
+author: "Kevine Tiogouo, Mavis, Ellen and Chifundo Kanjala"
 output: github_document
 ---
 
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Introduction
 
-This document compares the Disability-Adjusted Life Year (DALY) diseases burden for three countries: COUNTRY 1, COUNTRY 2, and COUNTRY 3. We compare the burden due to communicable, maternal, neonatal, and nutritional diseases (CMNN), non-communicable diseases (NCDs), and overall disease burden for these countries. 
+This document compares the Disability-Adjusted Life Year (DALY) diseases burden for three countries: Cameroon, Ghana and Malawi. We compare the burden due to communicable, maternal, neonatal, and nutritional diseases (CMNN), non-communicable diseases (NCDs), and overall disease burden for these countries. 
 
 The source data is from the Institute for Health Metrics and Evaluation (IHME) Global Burden of Disease (GBD) study. 
 
@@ -22,3 +22,6 @@ The source data is from the Institute for Health Metrics and Evaluation (IHME) G
 
 ```{r child='overall_burden.Rmd'}
 ```
+
+# Analysis of findings
+The analysis has shown decreasing burden over time with overall burden displaying similar patterns to those of the communicable, maternal, neonatal and nutritional diseases. The NCD burden for Malawi seem to have declined more sharply compared to the CMNN burden over the period of analysis. Diverse patterns displayed across the countries maybe a reflection of differences in country age profiles, socio-economic indicators and lifestyles. These need to be analysed further and should inform disease prevention and management efforts.
